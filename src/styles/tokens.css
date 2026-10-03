@@ -1,0 +1,105 @@
+/* ─────────────── Sistema de diseño: tokens ───────────────
+   Paleta sobria con un único color de acento (verde profundo).
+   Todos los colores de texto cumplen contraste WCAG AA. */
+:root {
+  color-scheme: light dark;
+
+  --bg: #f7f7f4;
+  --surface: #ffffff;
+  --surface-2: #f2f2ed;
+  --surface-3: #e9e9e2;
+  --border: #e2e1d9;
+  --border-strong: #c9c7bc;
+  --text: #1b1e1c;
+  --text-muted: #565c58;
+  --text-subtle: #6b716c;
+
+  --accent: #0b6b4d;
+  --accent-hover: #08573e;
+  --accent-soft: #e5f1eb;
+  --accent-softer: #f1f8f4;
+  --on-accent: #ffffff;
+  --focus: #1a73e8;
+
+  --danger: #a8231a;
+  --danger-soft: #fcecea;
+  --warning: #7a5000;
+  --warning-soft: #fbf3e2;
+  --info-soft: #eef3f9;
+  --info: #2c4f7c;
+
+  --chart-1: #0b6b4d;
+  --chart-2: #c47f12;
+  --chart-3: #4a6fa5;
+  --chart-grid: #e6e5de;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 2px rgb(20 24 22 / 0.05);
+  --shadow: 0 1px 2px rgb(20 24 22 / 0.04), 0 4px 14px rgb(20 24 22 / 0.05);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --container: 1120px;
+  --gutter: 16px;
+  --header-h: 60px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111312;
+    --surface: #181b19;
+    --surface-2: #1f2320;
+    --surface-3: #282d29;
+    --border: #2c312d;
+    --border-strong: #3d433e;
+    --text: #e8ebe8;
+    --text-muted: #a9b0ab;
+    --text-subtle: #959c97;
+
+    --accent: #52c79c;
+    --accent-hover: #72d5b0;
+    --accent-soft: #17302a;
+    --accent-softer: #142420;
+    --on-accent: #0a1d16;
+    --focus: #8ab4f8;
+
+    --danger: #f2948b;
+    --danger-soft: #3a1d1a;
+    --warning: #e9bf6a;
+    --warning-soft: #33280f;
+    --info-soft: #1a2433;
+    --info: #9fbbe0;
+
+    --chart-1: #52c79c;
+    --chart-2: #e3a443;
+    --chart-3: #8aa9d6;
+    --chart-grid: #2a2f2b;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 14px rgb(0 0 0 / 0.25);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --header-h: 64px;
+  }
+}
