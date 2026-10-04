@@ -264,6 +264,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
           <DataTable
             caption={`Comparación de ${product.name.toLowerCase()} entre entidades`}
             hideCaption
+            scroll
             rowKey={(r) => `${r.lender.id}-${r.product.id}`}
             rows={comparison}
             columns={[

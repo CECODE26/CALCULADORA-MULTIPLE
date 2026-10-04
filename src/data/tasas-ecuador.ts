@@ -79,7 +79,6 @@ export interface Lender {
   id: string;
   name: string;
   kind: LenderKind;
-  website: string;
   products: LoanProduct[];
 }
 
@@ -187,7 +186,6 @@ const allLenders: Lender[] = entities.map((e) => ({
   id: e.id,
   name: e.name,
   kind: e.kind as LenderKind,
-  website: e.website,
   products: buildProducts(bceLenders[e.id] ?? {}),
 }));
 

@@ -20,10 +20,10 @@ const product = (over: Partial<LoanProduct> = {}): LoanProduct => ({
 });
 
 const list: Lender[] = [
-  { id: "a", name: "Entidad A", kind: "banco", website: "https://a.example", products: [product({ nominalRate: 15 })] },
-  { id: "b", name: "Entidad B", kind: "cooperativa", website: "https://b.example", products: [product({ nominalRate: 12 })] },
-  { id: "c", name: "Entidad C", kind: "banco", website: "https://c.example", products: [product({ nominalRate: 10, maxMonths: 24 })] },
-  { id: "d", name: "Entidad D", kind: "banco", website: "https://d.example", products: [product({ category: "vivienda", segment: "inmobiliario" })] },
+  { id: "a", name: "Entidad A", kind: "banco", products: [product({ nominalRate: 15 })] },
+  { id: "b", name: "Entidad B", kind: "cooperativa", products: [product({ nominalRate: 12 })] },
+  { id: "c", name: "Entidad C", kind: "banco", products: [product({ nominalRate: 10, maxMonths: 24 })] },
+  { id: "d", name: "Entidad D", kind: "banco", products: [product({ category: "vivienda", segment: "inmobiliario" })] },
 ];
 
 describe("simulador por entidad", () => {

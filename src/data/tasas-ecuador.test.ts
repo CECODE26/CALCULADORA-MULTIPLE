@@ -43,8 +43,9 @@ describe("tasas de Ecuador (integridad de datos)", () => {
     expect(`${bce.month}-01`).toBe(BCE_MAX_RATES.asOf);
   });
 
-  it("incluye las entidades pedidas, también bancos medianos y cooperativas", () => {
+  it("incluye las entidades pedidas y las cooperativas del segmento 1", () => {
     const ids = lenders.map((l) => l.id);
     for (const id of ["pichincha", "austro", "internacional", "jep", "jardin-azuayo"]) expect(ids).toContain(id);
+    expect(lenders.filter((l) => l.kind === "cooperativa").length).toBeGreaterThanOrEqual(40);
   });
 });
