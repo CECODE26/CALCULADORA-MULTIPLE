@@ -118,7 +118,7 @@ export function PercentageCalculator() {
               note={ex.text}
               animationKey={mode}
             >
-              <pre className="formula" style={{ marginBottom: 0 }}>
+              <pre className="formula" style={{ marginBottom: 0 }} tabIndex={0} aria-label="Operación">
                 <code>{ex.formula}</code>
               </pre>
             </ResultCard>

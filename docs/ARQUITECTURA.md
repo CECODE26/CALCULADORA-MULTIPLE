@@ -40,7 +40,7 @@ una carpeta en `src/tools` + un archivo de lógica en `src/lib/calc`**.
 * Modo oscuro automático con `prefers-color-scheme` (sin interruptor, sin JavaScript).
 * Tipografía del sistema (cero descargas, cero CLS), números tabulares en resultados y tablas.
 * Mobile-first: campos de 48 px, texto de 16 px en inputs (evita el zoom de iOS), tablas con scroll propio,
-  sin scroll horizontal global (verificado a 320, 375, 390, 768 y 1280 px).
+  sin scroll horizontal global (verificado a 320, 375, 390, 430, 768 y 1280 px).
 * Microinteracciones: aparición suave de resultados y errores (180–220 ms); todo se desactiva con
   `prefers-reduced-motion`.
 * Componentes: `CalculatorLayout`, `NumberInput`, `CurrencyInput`, `PercentageInput`, `TimeInput`, `Select`,

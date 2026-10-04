@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 /** Bloque de fórmula legible (monoespaciada, con scroll propio si es larga). */
 export function Formula({ children, label }: { children: string; label?: string }) {
   return (
-    <pre className="formula" aria-label={label ?? "Fórmula"}>
+    // tabIndex: si la fórmula no cabe en móvil, su scroll horizontal debe ser accesible con teclado
+    <pre className="formula" aria-label={label ?? "Fórmula"} tabIndex={0}>
       <code>{children}</code>
     </pre>
   );

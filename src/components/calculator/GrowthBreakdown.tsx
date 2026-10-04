@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { usePrefs } from "@/components/PreferencesProvider";
 import { LineChart } from "@/components/charts/Chart";
 import { DataTable } from "@/components/DataTable";
@@ -15,11 +16,12 @@ interface GrowthBreakdownProps {
 
 export function GrowthBreakdown({ years, initial, title = "Evolución año a año" }: GrowthBreakdownProps) {
   const { money } = usePrefs();
+  const headingId = useId();
   if (years.length === 0) return null;
   const label = (y: CompoundYear) => (y.months % 12 === 0 ? `Año ${y.year}` : `${y.months} meses`);
   const last = years[years.length - 1]!;
   return (
-    <section className="calc__full" aria-label={title}>
+    <section className="calc__full" aria-labelledby={headingId}>
       {years.length >= 1 ? (
         <LineChart
           title="Saldo frente a dinero aportado"
@@ -32,10 +34,12 @@ export function GrowthBreakdown({ years, initial, title = "Evolución año a añ
         />
       ) : null}
       <div className="table-toolbar">
-        <h2 style={{ fontSize: "1.15rem" }}>{title}</h2>
+        <h2 id={headingId} style={{ fontSize: "1.15rem" }}>
+          {title}
+        </h2>
       </div>
       <DataTable
-        caption={title}
+        caption={`Tabla: ${title.toLowerCase()}`}
         hideCaption
         scroll={years.length > 15}
         rowKey={(y) => y.year}

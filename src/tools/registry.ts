@@ -30,8 +30,8 @@ export interface ToolEntry {
   keywords: string[];
   /** Herramientas relacionadas, en orden de relevancia */
   related: string[];
+  /** Destacada en la home (máximo ~6) */
   popular?: boolean;
-  featured?: boolean;
   /** Publicada: si es false no aparece en navegación, buscador ni sitemap */
   live: boolean;
   /** Versiones regionales reales (activa hreflang). Vacío por ahora. */
@@ -58,7 +58,6 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["tabla-amortizacion", "calculadora-interes-compuesto", "calculadora-ahorro", "calculadora-porcentajes"],
     popular: true,
-    featured: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -77,7 +76,6 @@ export const tools: readonly ToolEntry[] = [
       "saldo", "capital", "sistema frances", "sistema aleman", "cuota fija", "abonos", "prestamo", "credito",
     ],
     related: ["calculadora-prestamos", "calculadora-interes-compuesto", "calculadora-ahorro"],
-    popular: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -98,7 +96,6 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-ahorro", "calculadora-prestamos", "tabla-amortizacion", "calculadora-porcentajes"],
     popular: true,
-    featured: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -117,7 +114,6 @@ export const tools: readonly ToolEntry[] = [
       "cuanto ahorrar", "plan de ahorro", "guardar dinero", "alcancia", "vacaciones", "entrada casa",
     ],
     related: ["calculadora-interes-compuesto", "calculadora-prestamos", "calculadora-porcentajes"],
-    popular: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -137,7 +133,6 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-precio-venta", "calculadora-punto-equilibrio", "calculadora-descuentos", "calculadora-iva"],
     popular: true,
-    featured: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -156,7 +151,6 @@ export const tools: readonly ToolEntry[] = [
       "marketplace", "envio", "empaque", "precio final", "emprendimiento", "producto",
     ],
     related: ["calculadora-margen-ganancia", "calculadora-punto-equilibrio", "calculadora-iva", "calculadora-descuentos"],
-    popular: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -194,7 +188,6 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-descuentos", "calculadora-iva", "calculadora-margen-ganancia"],
     popular: true,
-    featured: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -214,7 +207,6 @@ export const tools: readonly ToolEntry[] = [
       "liquidacion", "descuento sucesivo", "porcentaje de descuento", "2x1",
     ],
     related: ["calculadora-porcentajes", "calculadora-margen-ganancia", "calculadora-precio-venta", "calculadora-iva"],
-    popular: true,
     live: true,
     updated: "2026-10-03",
   },
@@ -253,7 +245,6 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-precio-venta", "calculadora-margen-ganancia", "calculadora-descuentos", "calculadora-porcentajes"],
     popular: true,
-    featured: true,
     live: true,
     updated: "2026-10-03",
   },

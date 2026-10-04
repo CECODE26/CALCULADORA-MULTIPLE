@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const tools = liveTools();
   const popular = tools.filter((t) => t.popular);
-  const featured = tools.filter((t) => t.featured);
+  const others = tools.filter((t) => !t.popular);
 
   return (
     <div className="container">
@@ -80,13 +80,13 @@ export default function HomePage() {
         </section>
       )}
 
-      {featured.length > 0 ? (
-        <section className="section" aria-labelledby="featured-title">
+      {others.length > 0 ? (
+        <section className="section" aria-labelledby="more-title">
           <div className="section__head">
-            <h2 id="featured-title">Recomendadas para empezar</h2>
+            <h2 id="more-title">Más herramientas</h2>
           </div>
           <ul className="card-grid card-grid--4">
-            {featured.map((t) => (
+            {others.map((t) => (
               <li key={t.slug}>
                 <ToolCard tool={{ slug: t.slug, name: t.name, icon: t.icon }} compact />
               </li>
