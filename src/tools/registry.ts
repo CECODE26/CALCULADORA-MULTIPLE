@@ -195,7 +195,7 @@ export const tools: readonly ToolEntry[] = [
     related: ["calculadora-descuentos", "calculadora-iva", "calculadora-margen-ganancia"],
     popular: true,
     featured: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -215,7 +215,7 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-porcentajes", "calculadora-margen-ganancia", "calculadora-precio-venta", "calculadora-iva"],
     popular: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -234,7 +234,7 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-porcentajes", "calculadora-ahorro"],
     popular: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -254,7 +254,7 @@ export const tools: readonly ToolEntry[] = [
     related: ["calculadora-precio-venta", "calculadora-margen-ganancia", "calculadora-descuentos", "calculadora-porcentajes"],
     popular: true,
     featured: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
 ];
