@@ -286,8 +286,12 @@
 /* ─────────────── Calculadora ─────────────── */
 .calc {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   align-items: start;
+}
+.calc > * {
+  min-width: 0;
 }
 @media (min-width: 900px) {
   .calc {

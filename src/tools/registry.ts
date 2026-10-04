@@ -59,7 +59,7 @@ export const tools: readonly ToolEntry[] = [
     related: ["tabla-amortizacion", "calculadora-interes-compuesto", "calculadora-ahorro", "calculadora-porcentajes"],
     popular: true,
     featured: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
