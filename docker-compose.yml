@@ -1,0 +1,82 @@
+# Despliegue en VPS: app Next.js + Nginx (HTTPS) + Certbot (Let's Encrypt).
+# Uso: ver README, sección "Despliegue en VPS".
+name: calculadora
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  app:
+    image: calculadora-app:${APP_TAG:-latest}
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_NAME: ${NEXT_PUBLIC_SITE_NAME:-}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?Define NEXT_PUBLIC_SITE_URL en .env}
+        NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-}
+        NEXT_PUBLIC_DEFAULT_LOCALE: ${NEXT_PUBLIC_DEFAULT_LOCALE:-es-EC}
+        NEXT_PUBLIC_DEFAULT_CURRENCY: ${NEXT_PUBLIC_DEFAULT_CURRENCY:-USD}
+        NEXT_PUBLIC_CONTACT_EMAIL: ${NEXT_PUBLIC_CONTACT_EMAIL:-}
+        NEXT_PUBLIC_GA_ID: ${NEXT_PUBLIC_GA_ID:-}
+        NEXT_PUBLIC_ADSENSE_CLIENT_ID: ${NEXT_PUBLIC_ADSENSE_CLIENT_ID:-}
+        NEXT_PUBLIC_ADS_ENABLED: ${NEXT_PUBLIC_ADS_ENABLED:-false}
+        NEXT_PUBLIC_AD_SLOT_TOOL_IN_CONTENT: ${NEXT_PUBLIC_AD_SLOT_TOOL_IN_CONTENT:-}
+        NEXT_PUBLIC_AD_SLOT_TOOL_BOTTOM: ${NEXT_PUBLIC_AD_SLOT_TOOL_BOTTOM:-}
+        NEXT_PUBLIC_AD_SLOT_LISTING: ${NEXT_PUBLIC_AD_SLOT_LISTING:-}
+        NEXT_PUBLIC_REQUIRE_CONSENT: ${NEXT_PUBLIC_REQUIRE_CONSENT:-true}
+        NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION:-}
+    restart: unless-stopped
+    # Solo accesible desde Nginx (red interna), nunca expuesto directamente.
+    expose:
+      - "3000"
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    logging: *logging
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?Define DOMAIN en .env (sin https://)}
+    # Recarga Nginx cada 24 h para aplicar certificados renovados.
+    command: /bin/sh -c "while :; do sleep 24h & wait $${!}; nginx -s reload; done & exec /docker-entrypoint.sh nginx -g 'daemon off;'"
+    volumes:
+      - ./deploy/nginx/templates:/etc/nginx/templates:ro
+      - ./deploy/nginx/snippets:/etc/nginx/snippets:ro
+      - certbot-etc:/etc/letsencrypt
+      - certbot-www:/var/www/certbot:ro
+      - nginx-cache:/var/cache/nginx
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/nginx-health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: *logging
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    # Renueva cada 12 h (solo renueva si faltan < 30 días). Nginx recarga a diario.
+    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done"
+    logging: *logging
+
+volumes:
+  certbot-etc:
+  certbot-www:
+  nginx-cache:
