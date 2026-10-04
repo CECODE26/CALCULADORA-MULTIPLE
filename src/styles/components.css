@@ -239,6 +239,9 @@
   overflow-x: auto;
   scrollbar-width: none;
   margin: 0 0 var(--space-5);
+  /* <fieldset> tiene min-width: min-content por defecto */
+  min-width: 0;
+  max-width: 100%;
 }
 .segmented::-webkit-scrollbar {
   display: none;
@@ -541,6 +544,7 @@
 /* ─────────────── Gráficos ─────────────── */
 .chart {
   margin: var(--space-5) 0 0;
+  max-width: 760px;
 }
 .chart figcaption {
   font-weight: 600;

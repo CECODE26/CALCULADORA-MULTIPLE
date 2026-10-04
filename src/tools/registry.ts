@@ -78,7 +78,7 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-prestamos", "calculadora-interes-compuesto", "calculadora-ahorro"],
     popular: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
