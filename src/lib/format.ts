@@ -85,3 +85,12 @@ export function formatHHMM(totalMinutes: unknown): string {
   const m = abs % 60;
   return `${totalMinutes < 0 ? "-" : ""}${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
+
+/** "2026-09-01" → "1 de septiembre de 2026". Fecha no válida → "—". */
+export function formatDate(iso: string, locale = "es-EC"): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return EMPTY;
+  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  if (d.getUTCMonth() !== Number(m[2]) - 1) return EMPTY;
+  return new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(d);
+}

@@ -149,6 +149,7 @@ export function AmortizationCalculator() {
             />
             <div className="btn-row" style={{ marginTop: 12 }}>
               <NextStep from={SLUG} to="calculadora-prestamos" label="Comparar cuotas" />
+              <NextStep from={SLUG} to="simulador-credito-ecuador" label="Simular con un banco de Ecuador" />
             </div>
           </>
         ) : general ? (

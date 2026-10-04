@@ -1,0 +1,51 @@
+import { describe, expect, it } from "vitest";
+import { nominalToEffective } from "@/lib/calc/lender";
+import { BCE_MAX_RATES, lenders } from "./tasas-ecuador";
+import bce from "./tasas-ecuador-bce.json";
+
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+
+describe("tasas de Ecuador (integridad de datos)", () => {
+  it("ids únicos y fuentes oficiales con fecha", () => {
+    const ids = lenders.map((l) => l.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const l of lenders) {
+      const pids = l.products.map((p) => p.id);
+      expect(new Set(pids).size, l.id).toBe(pids.length);
+      for (const p of l.products) {
+        expect(p.source, `${l.id}/${p.id}`).toMatch(/^https:\/\//);
+        expect(p.asOf, `${l.id}/${p.id}`).toMatch(ISO);
+        expect(p.nominalRate, `${l.id}/${p.id}`).toBeGreaterThan(0);
+        if (p.minMonths !== undefined) expect(p.minMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(1);
+        if (p.maxMonths !== undefined) expect(p.maxMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(p.minMonths ?? 1);
+        if (p.effectiveRate !== undefined) {
+          // La efectiva publicada debe corresponder a la nominal con capitalización mensual
+          expect(Math.abs(nominalToEffective(p.nominalRate) - p.effectiveRate), `${l.id}/${p.id}`).toBeLessThan(0.02);
+        }
+        if (p.minAmount !== undefined && p.maxAmount !== undefined) expect(p.maxAmount).toBeGreaterThanOrEqual(p.minAmount);
+      }
+    }
+  });
+
+  it("si hay tasas máximas del BCE, tienen fecha y ninguna tasa las supera", () => {
+    if (Object.keys(BCE_MAX_RATES.rates).length > 0) expect(BCE_MAX_RATES.asOf).toMatch(ISO);
+    for (const l of lenders) {
+      for (const p of l.products) {
+        const cap = BCE_MAX_RATES.rates[p.segment];
+        if (!cap) continue;
+        const effective = p.effectiveRate ?? nominalToEffective(p.nominalRate);
+        expect(effective, `${l.id}/${p.id}`).toBeLessThanOrEqual(cap.maxEffective + 0.005);
+      }
+    }
+  });
+
+  it("los promedios son del mismo mes que las tasas máximas", () => {
+    expect(`${bce.month}-01`).toBe(BCE_MAX_RATES.asOf);
+  });
+
+  it("incluye las entidades pedidas y las cooperativas del segmento 1", () => {
+    const ids = lenders.map((l) => l.id);
+    for (const id of ["pichincha", "austro", "internacional", "jep", "jardin-azuayo"]) expect(ids).toContain(id);
+    expect(lenders.filter((l) => l.kind === "cooperativa").length).toBeGreaterThanOrEqual(40);
+  });
+});

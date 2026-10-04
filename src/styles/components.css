@@ -308,6 +308,14 @@
     position: sticky;
     top: calc(var(--header-h) + 16px);
   }
+  /*
+   * El límite de un elemento sticky es todo el contenedor .calc, no su fila.
+   * Si debajo hay una sección a ancho completo (tabla, gráfico), el resultado
+   * se quedaría fijo encima de ella, así que en ese caso deja de ser sticky.
+   */
+  .calc:has(> .calc__full) .calc__result {
+    position: static;
+  }
 }
 .panel {
   background: var(--surface);
@@ -1121,4 +1129,19 @@
 input[type="time"].field__input {
   padding-inline: var(--space-2);
   min-width: 0;
+}
+
+/* Datos de la tasa elegida en el simulador por entidad */
+.rate-facts {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+.rate-facts p {
+  margin: 0;
+}
+.rate-facts p + p {
+  margin-top: var(--space-1);
 }
