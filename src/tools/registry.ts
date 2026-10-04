@@ -85,9 +85,9 @@ export const tools: readonly ToolEntry[] = [
     name: "Simulador de crédito en Ecuador",
     title: "Simulador de crédito en Ecuador: bancos y cooperativas",
     description:
-      "Simula un crédito con la tasa referencial de un banco o cooperativa de Ecuador: cuota mensual, tabla de amortización francés o alemán y comparación entre entidades.",
+      "Simula un crédito con la tasa promedio de un banco o cooperativa de Ecuador según el BCE: cuota mensual, tabla de amortización y comparación entre entidades.",
     h1: "Simulador de crédito por banco y cooperativa en Ecuador",
-    lead: "Elige la entidad y el tipo de crédito, y obtén la cuota y la tabla de amortización con su tasa referencial publicada.",
+    lead: "Elige la entidad y el tipo de crédito, y obtén la cuota y la tabla de amortización con la tasa promedio que cobra, según el Banco Central.",
     category: "finanzas",
     icon: "bank",
     keywords: [

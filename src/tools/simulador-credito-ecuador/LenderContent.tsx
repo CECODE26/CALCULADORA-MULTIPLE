@@ -8,8 +8,9 @@ import { BCE_MAX_RATES } from "@/data/tasas-ecuador";
 export function RatesDisclaimer() {
   return (
     <p>
-      <strong>Tasas referenciales:</strong> cada tasa se tomó de la página oficial de la entidad en la fecha indicada
-      junto a ella y puede haber cambiado. La tasa final depende de tu perfil, el monto, el plazo y las garantías.
+      <strong>Tasas referenciales:</strong> la tasa de cada entidad es el promedio, ponderado por monto, de los créditos
+      que concedió en el mes indicado según los datos del Banco Central del Ecuador. No es una oferta: la tasa que te
+      den depende de tu perfil, el monto, el plazo y las garantías, y nunca puede superar la máxima del segmento.
       {BCE_MAX_RATES.asOf ? (
         <>
           {" "}
@@ -26,7 +27,7 @@ export function LenderContent() {
     <>
       <h2>Cómo usar el simulador</h2>
       <ol>
-        <li>Elige el banco o la cooperativa y el tipo de crédito. Verás su tasa nominal, la efectiva y los plazos admitidos.</li>
+        <li>Elige el banco o la cooperativa y el tipo de crédito. Verás la tasa promedio que cobró esa entidad y la máxima del BCE.</li>
         <li>Escribe el monto en dólares y el plazo en meses.</li>
         <li>Elige cuota fija (sistema francés) o capital fijo (sistema alemán).</li>
         <li>Revisa la cuota, la tabla de amortización y cuánto costaría el mismo crédito en otras entidades.</li>

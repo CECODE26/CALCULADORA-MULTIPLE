@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { nominalToEffective } from "@/lib/calc/lender";
 import { BCE_MAX_RATES, lenders } from "./tasas-ecuador";
+import bce from "./tasas-ecuador-bce.json";
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -36,5 +37,14 @@ describe("tasas de Ecuador (integridad de datos)", () => {
         expect(effective, `${l.id}/${p.id}`).toBeLessThanOrEqual(cap.maxEffective + 0.005);
       }
     }
+  });
+
+  it("los promedios son del mismo mes que las tasas máximas", () => {
+    expect(`${bce.month}-01`).toBe(BCE_MAX_RATES.asOf);
+  });
+
+  it("incluye las entidades pedidas, también bancos medianos y cooperativas", () => {
+    const ids = lenders.map((l) => l.id);
+    for (const id of ["pichincha", "austro", "internacional", "jep", "jardin-azuayo"]) expect(ids).toContain(id);
   });
 });

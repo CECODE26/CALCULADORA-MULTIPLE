@@ -20,7 +20,7 @@ import { compareLenders, findLender, nominalToEffective, simulateLenderLoan } fr
 import { downloadCsv, toCsv } from "@/lib/csv";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { round2 } from "@/lib/number";
-import { BCE_MAX_RATES, CATEGORY_LABELS, LENDER_KIND_LABELS, lenders as publishedLenders, type Lender } from "@/data/tasas-ecuador";
+import { BCE_MAX_RATES, LENDER_KIND_LABELS, lenders as publishedLenders, type Lender } from "@/data/tasas-ecuador";
 
 const SLUG = "simulador-credito-ecuador";
 const INITIAL = { principal: "", term: "" };
@@ -32,6 +32,13 @@ function range(label: string, min: number | undefined, max: number | undefined, 
   if (max !== undefined) return `${label}: hasta ${fmt(max)}`;
   if (min !== undefined) return `${label}: desde ${fmt(min)}`;
   return null;
+}
+
+/** "2026-08-01" → "agosto de 2026" */
+function monthYear(iso: string, locale: string): string {
+  const [y, m] = iso.split("-").map(Number);
+  if (!y || !m) return "";
+  return new Intl.DateTimeFormat(locale, { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(y, m - 1, 1)));
 }
 
 export function LenderSimulator({ lenders = publishedLenders }: { lenders?: readonly Lender[] }) {
@@ -51,7 +58,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
   const product = lender.products.find((p) => p.id === productId) ?? lender.products[0]!;
   const [system, setSystem] = useState<AmortizationSystem>("french");
   const [showAll, setShowAll] = useState(false);
-  const { locale, pct } = usePrefs();
+  const { locale, pct, num } = usePrefs();
   // Los créditos en Ecuador son en dólares: se muestra siempre USD, sea cual sea la moneda elegida en el sitio.
   const usd = (v: unknown) => formatCurrency(v, { locale, currency: "USD" });
 
@@ -60,7 +67,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
     if (!next) return;
     setLenderId(id);
     // Se conserva el mismo tipo de crédito si la nueva entidad lo ofrece
-    const same = next.products.find((p) => p.category === product.category);
+    const same = next.products.find((p) => p.segment === product.segment);
     setProductId((same ?? next.products[0]!).id);
     setShowAll(false);
   }
@@ -69,14 +76,15 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
     () => simulateLenderLoan({ product, principal: nums.principal, months: nums.term, system }),
     [product, nums, system],
   );
-  useTrackCalculation(SLUG, product.category, res.ok, signature + lenderId + productId + system);
+  useTrackCalculation(SLUG, product.segment, res.ok, signature + lenderId + productId + system);
 
   const years = useMemo(() => (res.ok ? summarizeByYear(res.value.rows, 12) : []), [res]);
   const comparison = useMemo(
-    () => (res.ok ? compareLenders(product.category, nums.principal, nums.term, system, lenders) : []),
-    [res.ok, product.category, nums, system, lenders],
+    () => (res.ok ? compareLenders(product.segment, nums.principal, nums.term, system, lenders) : []),
+    [res.ok, product.segment, nums, system, lenders],
   );
   const cap = BCE_MAX_RATES.rates[product.segment];
+  const isAverage = product.asOfKind === "promedio";
   const effective = product.effectiveRate ?? nominalToEffective(product.nominalRate);
 
   function resetAll() {
@@ -102,7 +110,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
       range("Monto", product.minAmount, product.maxAmount, usd),
     ]
       .filter(Boolean)
-      .join(" · ") || "La entidad no publica límites de plazo ni monto; dependen de la evaluación.";
+      .join(" · ") || undefined;
 
   return (
     <div className="calc">
@@ -144,7 +152,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
           />
           <div className="rate-facts" aria-live="polite">
             <p>
-              <span className="muted">Tasa nominal anual: </span>
+              <span className="muted">{isAverage ? "Tasa promedio nominal anual: " : "Tasa nominal anual: "}</span>
               <strong>{pct(product.nominalRate, 2)}</strong>
               <span className="muted"> · efectiva: </span>
               <strong>{pct(effective, 2)}</strong>
@@ -154,13 +162,23 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
                 Máxima del BCE para {cap.label.toLowerCase()}: {pct(cap.maxEffective, 2)} efectiva.
               </p>
             ) : null}
-            <p className="muted">
-              Fuente:{" "}
-              <a href={product.source} target="_blank" rel="noopener noreferrer">
-                {lender.name}
-              </a>{" "}
-              · {product.asOfKind === "vigente" ? "vigente desde" : "consultada el"} {formatDate(product.asOf, locale)}
-            </p>
+            {isAverage ? (
+              <p className="muted">
+                Promedio de {num(product.operations ?? 0, 0)} créditos que concedió en {monthYear(product.asOf, locale)}. Fuente:{" "}
+                <a href={product.source} target="_blank" rel="noopener noreferrer">
+                  Banco Central del Ecuador
+                </a>
+                .
+              </p>
+            ) : (
+              <p className="muted">
+                Fuente:{" "}
+                <a href={product.source} target="_blank" rel="noopener noreferrer">
+                  {lender.name}
+                </a>{" "}
+                · vigente desde {formatDate(product.asOf, locale)}
+              </p>
+            )}
           </div>
           <NumberInput label="Monto del crédito" prefix="$" placeholder="0" value={values.principal} onChange={set("principal")} error={fieldError(res, "principal")} />
           <NumberInput
@@ -218,7 +236,9 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
                   `${system === "french" ? "Cuota" : "Primera cuota"}: ${usd(res.value.firstPayment)}`,
                   `Intereses totales: ${usd(res.value.totalInterest)}`,
                   `Total a pagar: ${usd(res.value.totalPaid)}`,
-                  `Tasa referencial ${pct(product.nominalRate, 2)} nominal (${formatDate(product.asOf, locale)}).`,
+                  isAverage
+                    ? `Tasa promedio de la entidad en ${monthYear(product.asOf, locale)}: ${pct(product.nominalRate, 2)} nominal (BCE).`
+                    : `Tasa referencial ${pct(product.nominalRate, 2)} nominal (${formatDate(product.asOf, locale)}).`,
                 ].join("\n")
               }
             />
@@ -238,11 +258,11 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
             </h2>
           </div>
           <p className="muted" style={{ marginTop: 0 }}>
-            {CATEGORY_LABELS[product.category]} de {usd(res.value.principal)} a {res.value.periods} meses, ordenado por
-            total a pagar. Solo aparecen las entidades cuyo plazo y monto publicados admiten esta simulación.
+            {product.name} de {usd(res.value.principal)} a {res.value.periods} meses, ordenado por
+            total a pagar. Cada entidad con su tasa promedio del mismo mes.
           </p>
           <DataTable
-            caption={`Comparación de ${CATEGORY_LABELS[product.category].toLowerCase()} entre entidades`}
+            caption={`Comparación de ${product.name.toLowerCase()} entre entidades`}
             hideCaption
             rowKey={(r) => `${r.lender.id}-${r.product.id}`}
             rows={comparison}

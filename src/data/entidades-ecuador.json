@@ -1,0 +1,15 @@
+[
+  { "id": "pichincha", "name": "Banco Pichincha", "kind": "banco", "ruc": "1790010937001", "website": "https://www.pichincha.com/" },
+  { "id": "guayaquil", "name": "Banco Guayaquil", "kind": "banco", "ruc": "0990049459001", "website": "https://www.bancoguayaquil.com/" },
+  { "id": "pacifico", "name": "Banco del Pacífico", "kind": "banco", "ruc": "0990005737001", "website": "https://www.bancodelpacifico.com/" },
+  { "id": "produbanco", "name": "Produbanco", "kind": "banco", "ruc": "1790368718001", "website": "https://www.produbanco.com.ec/" },
+  { "id": "internacional", "name": "Banco Internacional", "kind": "banco", "ruc": "1790098354001", "website": "https://www.bancointernacional.com.ec/" },
+  { "id": "bolivariano", "name": "Banco Bolivariano", "kind": "banco", "ruc": "0990379017001", "website": "https://www.bolivariano.com/" },
+  { "id": "austro", "name": "Banco del Austro", "kind": "banco", "ruc": "0190055965001", "website": "https://www.bancodelaustro.com/" },
+  { "id": "jep", "name": "Cooperativa JEP", "kind": "cooperativa", "ruc": "0190115798001", "website": "https://www.coopjep.fin.ec/" },
+  { "id": "jardin-azuayo", "name": "Cooperativa Jardín Azuayo", "kind": "cooperativa", "ruc": "0190155722001", "website": "https://www.jardinazuayo.fin.ec/" },
+  { "id": "policia-nacional", "name": "Cooperativa Policía Nacional", "kind": "cooperativa", "ruc": "1790866084001", "website": "https://www.cpn.fin.ec/" },
+  { "id": "29-octubre", "name": "Cooperativa 29 de Octubre", "kind": "cooperativa", "ruc": "1790567699001", "website": "https://www.29deoctubre.fin.ec/" },
+  { "id": "alianza-valle", "name": "Cooperativa Alianza del Valle", "kind": "cooperativa", "ruc": "1790501469001", "website": "https://www.alianzadelvalle.fin.ec/" },
+  { "id": "biess", "name": "BIESS", "kind": "publica", "ruc": "1768156470001", "website": "https://www.biess.fin.ec/" }
+]

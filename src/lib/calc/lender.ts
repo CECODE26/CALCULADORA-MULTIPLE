@@ -1,7 +1,7 @@
 import { amortize, type AmortizationResult, type AmortizationSystem } from "./amortization";
 import { effectiveAnnualRate } from "./rates";
 import { fail, isNum, type CalcResult } from "./types";
-import { lenders, type Lender, type LoanCategory, type LoanProduct } from "@/data/tasas-ecuador";
+import { lenders, type BceSegment, type Lender, type LoanProduct } from "@/data/tasas-ecuador";
 
 /** Tasa efectiva anual equivalente a una nominal anual con pagos mensuales (como la publica el BCE). */
 export function nominalToEffective(nominalPct: number): number {
@@ -66,11 +66,11 @@ export interface LenderComparisonRow {
 
 /**
  * Compara el mismo crédito (monto, plazo y sistema) en todas las entidades
- * que tienen un producto de la categoría indicada. Solo se incluyen los
+ * que tienen un producto del segmento indicado. Solo se incluyen los
  * productos cuyo plazo y monto admiten la simulación. Orden: menor costo total.
  */
 export function compareLenders(
-  category: LoanCategory,
+  segment: BceSegment,
   principal: number,
   months: number,
   system: AmortizationSystem,
@@ -79,7 +79,7 @@ export function compareLenders(
   const rows: LenderComparisonRow[] = [];
   for (const lender of list) {
     for (const product of lender.products) {
-      if (product.category !== category) continue;
+      if (product.segment !== segment) continue;
       const res = simulateLenderLoan({ product, principal, months, system });
       if (!res.ok) continue;
       rows.push({

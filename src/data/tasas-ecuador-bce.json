@@ -1,0 +1,492 @@
+{
+  "month": "2026-08",
+  "file": "tma_desde_200801.csv",
+  "lenders": {
+    "pichincha": {
+      "CONSUMO": {
+        "effectiveRate": 16.02,
+        "operations": 139318,
+        "amount": 226228614
+      },
+      "EDUCATIVO": {
+        "effectiveRate": 8.58,
+        "operations": 95,
+        "amount": 489572
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 8.18,
+        "operations": 163,
+        "amount": 16556860
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 21.46,
+        "operations": 1027,
+        "amount": 19597434
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 24.71,
+        "operations": 13803,
+        "amount": 105433712
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 25.31,
+        "operations": 14253,
+        "amount": 14811053
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 6.69,
+        "operations": 4199,
+        "amount": 266249406
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 9.42,
+        "operations": 2625,
+        "amount": 87011970
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 9.33,
+        "operations": 2335,
+        "amount": 109446619
+      },
+      "VIVIENDA DE INTERÉS PÚBLICO": {
+        "effectiveRate": 4.98,
+        "operations": 18,
+        "amount": 1519695
+      },
+      "VIVIENDA DE INTERÉS SOCIAL": {
+        "effectiveRate": 4.98,
+        "operations": 9,
+        "amount": 586030
+      }
+    },
+    "guayaquil": {
+      "CONSUMO": {
+        "effectiveRate": 15.72,
+        "operations": 157486,
+        "amount": 179426612
+      },
+      "EDUCATIVO": {
+        "effectiveRate": 9.5,
+        "operations": 5,
+        "amount": 105611
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 8.51,
+        "operations": 25,
+        "amount": 4555984
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 20.78,
+        "operations": 751,
+        "amount": 5867415
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 24.3,
+        "operations": 5159,
+        "amount": 18721389
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 24.79,
+        "operations": 4582,
+        "amount": 3373305
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 7.13,
+        "operations": 1057,
+        "amount": 276573944
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 9.26,
+        "operations": 620,
+        "amount": 17917490
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 9.48,
+        "operations": 2422,
+        "amount": 11554567
+      }
+    },
+    "pacifico": {
+      "CONSUMO": {
+        "effectiveRate": 15.92,
+        "operations": 36116,
+        "amount": 55450352
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 6.98,
+        "operations": 168,
+        "amount": 16161617
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 15.35,
+        "operations": 21,
+        "amount": 725119
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 18.12,
+        "operations": 7,
+        "amount": 163102
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 7.44,
+        "operations": 302,
+        "amount": 101304379
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 8.43,
+        "operations": 154,
+        "amount": 22366501
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 9.31,
+        "operations": 398,
+        "amount": 13779699
+      },
+      "VIVIENDA DE INTERÉS PÚBLICO": {
+        "effectiveRate": 4.99,
+        "operations": 68,
+        "amount": 6278841
+      },
+      "VIVIENDA DE INTERÉS SOCIAL": {
+        "effectiveRate": 4.99,
+        "operations": 38,
+        "amount": 2425457
+      }
+    },
+    "produbanco": {
+      "CONSUMO": {
+        "effectiveRate": 16.32,
+        "operations": 28763,
+        "amount": 89623668
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 8.11,
+        "operations": 70,
+        "amount": 8988563
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 12.96,
+        "operations": 58,
+        "amount": 1641499
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 10.74,
+        "operations": 65,
+        "amount": 1270053
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 16.08,
+        "operations": 42,
+        "amount": 101819
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 6.43,
+        "operations": 2890,
+        "amount": 318708126
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 8.06,
+        "operations": 249,
+        "amount": 41713468
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 8.95,
+        "operations": 299,
+        "amount": 11608924
+      }
+    },
+    "internacional": {
+      "CONSUMO": {
+        "effectiveRate": 14.7,
+        "operations": 19759,
+        "amount": 42959279
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 8.67,
+        "operations": 8,
+        "amount": 1402194
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 11.57,
+        "operations": 19,
+        "amount": 760247
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 6.98,
+        "operations": 4,
+        "amount": 785649
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 7.56,
+        "operations": 3,
+        "amount": 2170000
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 6.85,
+        "operations": 821,
+        "amount": 244278045
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 8.62,
+        "operations": 303,
+        "amount": 51219321
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 8.75,
+        "operations": 300,
+        "amount": 32948478
+      }
+    },
+    "bolivariano": {
+      "CONSUMO": {
+        "effectiveRate": 15.53,
+        "operations": 49986,
+        "amount": 82382975
+      },
+      "EDUCATIVO": {
+        "effectiveRate": 8.51,
+        "operations": 1,
+        "amount": 20000
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 7.89,
+        "operations": 63,
+        "amount": 10946117
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 22.03,
+        "operations": 2,
+        "amount": 572
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 22.04,
+        "operations": 234,
+        "amount": 148997
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 22.04,
+        "operations": 226,
+        "amount": 148082
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 7.6,
+        "operations": 855,
+        "amount": 248996581
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 9.05,
+        "operations": 642,
+        "amount": 45263748
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 8.05,
+        "operations": 584,
+        "amount": 44483959
+      }
+    },
+    "austro": {
+      "CONSUMO": {
+        "effectiveRate": 16.06,
+        "operations": 3383,
+        "amount": 14361634
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 9.4,
+        "operations": 6,
+        "amount": 259500
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 22.05,
+        "operations": 1,
+        "amount": 85000
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 13.65,
+        "operations": 2,
+        "amount": 36057
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 7.66,
+        "operations": 25,
+        "amount": 27178574
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 8.51,
+        "operations": 28,
+        "amount": 22654641
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 9.93,
+        "operations": 31,
+        "amount": 3793701
+      }
+    },
+    "jep": {
+      "CONSUMO": {
+        "effectiveRate": 16.36,
+        "operations": 49657,
+        "amount": 63820336
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 9.39,
+        "operations": 92,
+        "amount": 9681200
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 16.86,
+        "operations": 59,
+        "amount": 3143540
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 16.74,
+        "operations": 339,
+        "amount": 6291360
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 16.94,
+        "operations": 110,
+        "amount": 642851
+      },
+      "PRODUCTIVO - CORPORATIVO": {
+        "effectiveRate": 7.69,
+        "operations": 2,
+        "amount": 1223584
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 10.03,
+        "operations": 7,
+        "amount": 1043168
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 10.3,
+        "operations": 15,
+        "amount": 6760692
+      }
+    },
+    "jardin-azuayo": {
+      "CONSUMO": {
+        "effectiveRate": 14.08,
+        "operations": 7170,
+        "amount": 40003147
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 9.39,
+        "operations": 42,
+        "amount": 3443338
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 14.06,
+        "operations": 79,
+        "amount": 1070948
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 13.8,
+        "operations": 690,
+        "amount": 6433620
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 14.41,
+        "operations": 1669,
+        "amount": 7639681
+      },
+      "PRODUCTIVO EMPRESARIAL": {
+        "effectiveRate": 8.41,
+        "operations": 11,
+        "amount": 2666415
+      },
+      "PRODUCTIVO PYMES": {
+        "effectiveRate": 10.07,
+        "operations": 17,
+        "amount": 876731
+      }
+    },
+    "policia-nacional": {
+      "CONSUMO": {
+        "effectiveRate": 16.33,
+        "operations": 17316,
+        "amount": 33382272
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 8.56,
+        "operations": 4,
+        "amount": 376000
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 21.92,
+        "operations": 12,
+        "amount": 239500
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 24.01,
+        "operations": 91,
+        "amount": 847902
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 27.65,
+        "operations": 11,
+        "amount": 71501
+      }
+    },
+    "29-octubre": {
+      "CONSUMO": {
+        "effectiveRate": 14.36,
+        "operations": 2426,
+        "amount": 27472029
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 9.36,
+        "operations": 26,
+        "amount": 1979564
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 19.98,
+        "operations": 21,
+        "amount": 425036
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 20.26,
+        "operations": 156,
+        "amount": 2640175
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 20.9,
+        "operations": 53,
+        "amount": 302163
+      }
+    },
+    "alianza-valle": {
+      "CONSUMO": {
+        "effectiveRate": 15.57,
+        "operations": 836,
+        "amount": 8297926
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN AMPLIADA": {
+        "effectiveRate": 19.07,
+        "operations": 340,
+        "amount": 18875274
+      },
+      "MICROCRÉDITO DE ACUMULACIÓN SIMPLE": {
+        "effectiveRate": 22.65,
+        "operations": 443,
+        "amount": 10218597
+      },
+      "MICROCRÉDITO MINORISTA": {
+        "effectiveRate": 26.78,
+        "operations": 502,
+        "amount": 3352585
+      }
+    },
+    "biess": {
+      "CONSUMO": {
+        "effectiveRate": 12.75,
+        "operations": 251595,
+        "amount": 423729802
+      },
+      "INMOBILIARIO": {
+        "effectiveRate": 6.13,
+        "operations": 672,
+        "amount": 37014687
+      }
+    }
+  }
+}
