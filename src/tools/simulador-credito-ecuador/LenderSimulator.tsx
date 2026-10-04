@@ -191,7 +191,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
               value={usd(res.value.firstPayment)}
               note={
                 system === "french"
-                  ? `${res.value.periods} cuotas iguales con ${lender.name} (${product.name.toLowerCase()}).`
+                  ? `${res.value.periods} cuotas iguales. ${lender.name}: ${product.name}.`
                   : `Las cuotas bajan hasta ${usd(res.value.lastPayment)} en el último mes (${res.value.periods} cuotas).`
               }
               animationKey={lenderId + productId + system}
