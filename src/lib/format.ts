@@ -48,7 +48,7 @@ export function formatNumber(value: unknown, locale: string, maxDecimals = 2, mi
 export function formatPercent(value: unknown, locale: string, maxDecimals = 2, isRatio = false): string {
   if (!isFiniteNumber(value)) return EMPTY;
   const pct = isRatio ? value * 100 : value;
-  return `${nf(locale, { maximumFractionDigits: maxDecimals }).format(normalizeZero(pct))} %`;
+  return `${nf(locale, { maximumFractionDigits: maxDecimals }).format(normalizeZero(pct))}\u00a0%`;
 }
 
 function normalizeZero(v: number): number {

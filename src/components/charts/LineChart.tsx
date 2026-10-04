@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrefs } from "@/components/PreferencesProvider";
+import { useWidth } from "./useWidth";
 import { compact, niceMax, niceMin, ticks } from "./scale";
 
 export interface Series {
@@ -25,12 +26,12 @@ interface LineChartProps {
   height?: number;
 }
 
-const W = 640;
 const PAD = { top: 12, right: 12, bottom: 28, left: 52 };
 
 /** Gráfico de líneas SVG ligero (sin librerías). */
 export function LineChart({ title, description, labels, series, xLabel, marker, height = 260 }: LineChartProps) {
   const { locale } = usePrefs();
+  const { ref, width: W } = useWidth<HTMLElement>();
   const H = height;
   const all = series.flatMap((s) => s.values).filter(Number.isFinite);
   if (labels.length < 2 || all.length === 0) return null;
@@ -42,10 +43,10 @@ export function LineChart({ title, description, labels, series, xLabel, marker, 
   const x = (i: number) => PAD.left + (i / (labels.length - 1)) * innerW;
   const y = (v: number) => PAD.top + innerH - ((v - yMin) / (yMax - yMin || 1)) * innerH;
   const yTicks = ticks(yMin, yMax, 4);
-  const step = Math.max(1, Math.ceil(labels.length / 8));
+  const step = Math.max(1, Math.ceil(labels.length / Math.max(3, Math.floor(W / 70))));
 
   return (
-    <figure className="chart">
+    <figure className="chart" ref={ref}>
       <figcaption>{title}</figcaption>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${title}. ${description}`} preserveAspectRatio="xMidYMid meet">
         {yTicks.map((t) => (

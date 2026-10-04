@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrefs } from "@/components/PreferencesProvider";
+import { useWidth } from "./useWidth";
 import { compact, niceMax, ticks } from "./scale";
 
 export interface BarSeries {
@@ -17,12 +18,12 @@ interface StackedBarChartProps {
   height?: number;
 }
 
-const W = 640;
 const PAD = { top: 12, right: 8, bottom: 28, left: 52 };
 
 /** Barras apiladas SVG (valores no negativos). */
 export function StackedBarChart({ title, description, labels, series, height = 240 }: StackedBarChartProps) {
   const { locale } = usePrefs();
+  const { ref, width: W } = useWidth<HTMLElement>();
   const H = height;
   if (labels.length === 0) return null;
   const totals = labels.map((_, i) => series.reduce((acc, s) => acc + Math.max(0, s.values[i] ?? 0), 0));
@@ -32,10 +33,10 @@ export function StackedBarChart({ title, description, labels, series, height = 2
   const band = innerW / labels.length;
   const barW = Math.max(2, Math.min(36, band * 0.68));
   const y = (v: number) => PAD.top + innerH - (v / yMax) * innerH;
-  const step = Math.max(1, Math.ceil(labels.length / 10));
+  const step = Math.max(1, Math.ceil(labels.length / Math.max(3, Math.floor(W / 64))));
 
   return (
-    <figure className="chart">
+    <figure className="chart" ref={ref}>
       <figcaption>{title}</figcaption>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${title}. ${description}`}>
         {ticks(0, yMax, 4).map((t) => (

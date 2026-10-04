@@ -18,8 +18,8 @@ describe("formatos", () => {
     expect(formatCurrency(-0.001, ctx)).not.toContain("-");
   });
   it("porcentajes", () => {
-    expect(formatPercent(12.345, "es-MX")).toBe("12.35 %");
-    expect(formatPercent(0.25, "es-MX", 2, true)).toBe("25 %");
+    expect(formatPercent(12.345, "es-MX")).toBe("12.35\u00a0%");
+    expect(formatPercent(0.25, "es-MX", 2, true)).toBe("25\u00a0%");
   });
   it("duraciones", () => {
     expect(formatDuration(450)).toBe("7 h 30 min");

@@ -247,7 +247,8 @@
   display: none;
 }
 .segmented__option {
-  flex: 1 0 auto;
+  flex: 1 1 0;
+  min-width: 0;
   position: relative;
 }
 .segmented__option input {
@@ -267,7 +268,9 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-muted);
-  white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
+  padding-block: 6px;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .segmented__option input:checked + span {

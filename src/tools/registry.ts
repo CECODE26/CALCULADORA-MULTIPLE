@@ -99,7 +99,7 @@ export const tools: readonly ToolEntry[] = [
     related: ["calculadora-ahorro", "calculadora-prestamos", "tabla-amortizacion", "calculadora-porcentajes"],
     popular: true,
     featured: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -118,7 +118,7 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-interes-compuesto", "calculadora-prestamos", "calculadora-porcentajes"],
     popular: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
