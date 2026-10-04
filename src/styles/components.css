@@ -308,6 +308,14 @@
     position: sticky;
     top: calc(var(--header-h) + 16px);
   }
+  /*
+   * El límite de un elemento sticky es todo el contenedor .calc, no su fila.
+   * Si debajo hay una sección a ancho completo (tabla, gráfico), el resultado
+   * se quedaría fijo encima de ella, así que en ese caso deja de ser sticky.
+   */
+  .calc:has(> .calc__full) .calc__result {
+    position: static;
+  }
 }
 .panel {
   background: var(--surface);
