@@ -21,7 +21,7 @@ import { calculateLoan } from "@/lib/calc/loan";
 import type { RateType, TermUnit } from "@/lib/calc/rates";
 
 const SLUG = "calculadora-prestamos";
-const INITIAL = { principal: "10000", rate: "12", term: "3" };
+const INITIAL = { principal: "", rate: "", term: "" };
 
 export function LoanCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -119,7 +119,7 @@ export function LoanCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver la cuota.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver la cuota.</ResultEmpty>
         )}
       </div>
 

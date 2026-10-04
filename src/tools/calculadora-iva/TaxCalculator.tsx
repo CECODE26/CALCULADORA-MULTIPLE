@@ -18,7 +18,7 @@ import { calculateTax, type TaxMode } from "@/lib/calc/tax";
 const SLUG = "calculadora-iva";
 /** Valores de acceso rápido. NO se asocian a ningún país: el usuario debe verificar la tasa vigente. */
 const QUICK_RATES = ["5", "8", "10", "12", "15", "16", "18", "19", "21"];
-const INITIAL = { amount: "100", rate: "" };
+const INITIAL = { amount: "", rate: "" };
 
 export function TaxCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -111,7 +111,7 @@ export function TaxCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el resultado.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el resultado.</ResultEmpty>
         )}
       </div>
     </div>

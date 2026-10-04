@@ -46,6 +46,8 @@ export function NumberInput({
   name,
   id,
 }: NumberInputProps) {
+  // Un campo vacío no se marca como error: el usuario aún no lo ha completado.
+  if (value.trim() === "") error = null;
   const autoId = useId();
   const inputId = id ?? autoId;
   const hintId = `${inputId}-hint`;

@@ -29,7 +29,8 @@ export interface LoanResult {
 export function calculateLoan(input: LoanInput): CalcResult<LoanResult> {
   const res = amortize({ ...input, periodsPerYear: 12, system: "french" });
   if (!res.ok) {
-    if (res.field === "term") return fail("El plazo debe ser un número entero de meses (por ejemplo 18 meses o 1,5 años).", "term");
+    // Solo se adapta el mensaje de "plazo no entero"; el resto de errores se mantienen
+    if (res.field === "term" && res.error.startsWith("El plazo no corresponde")) return fail("El plazo debe ser un número entero de meses (por ejemplo 18 meses o 1,5 años).", "term");
     return res;
   }
   const v = res.value;

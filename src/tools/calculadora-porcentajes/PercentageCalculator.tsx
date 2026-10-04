@@ -36,7 +36,7 @@ const fieldLabels: Record<PercentageMode, [string, string, boolean]> = {
   originalBeforeDecrease: ["Descuento aplicado", "Valor final (después del descuento)", true],
 };
 
-const INITIAL = { a: "15", b: "200" };
+const INITIAL = { a: "", b: "" };
 
 export function PercentageCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -130,7 +130,7 @@ export function PercentageCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el resultado.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el resultado.</ResultEmpty>
         )}
       </div>
     </div>

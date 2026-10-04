@@ -144,6 +144,11 @@ describe("calculadora de préstamos", () => {
     if (!r.ok) throw new Error(r.error);
     expect(r.value.payment).toBeCloseTo(frenchPayment(5000, 0.02, 24), 2);
   });
+  it("plazo 0 → mensaje específico", () => {
+    const r = calculateLoan({ principal: 5000, ratePct: 10, rateType: "nominal-annual", term: 0, termUnit: "months" });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toBe("El plazo debe ser mayor que cero.");
+  });
   it("plazo en años fraccionario no entero en meses → error", () => {
     const r = calculateLoan({ principal: 5000, ratePct: 10, rateType: "nominal-annual", term: 1.33, termUnit: "years" });
     expect(r.ok).toBe(false);

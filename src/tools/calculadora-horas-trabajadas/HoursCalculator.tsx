@@ -28,13 +28,13 @@ interface DayState {
 }
 
 const initialWeek = (): DayState[] =>
-  DAYS.map((_, i) => ({ enabled: i < 5, start: "09:00", end: "18:00", brk: "60" }));
+  DAYS.map((_, i) => ({ enabled: i < 5, start: "", end: "", brk: "" }));
 
 export function HoursCalculator() {
   const [mode, setMode] = useState<Mode>("daily");
-  const [start, setStart] = useState("08:00");
-  const [end, setEnd] = useState("17:00");
-  const [brk, setBrk] = useState("60");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [brk, setBrk] = useState("");
   const [week, setWeek] = useState<DayState[]>(initialWeek);
   const { parse, num } = usePrefs();
 
@@ -42,7 +42,10 @@ export function HoursCalculator() {
 
   const daily = useMemo(() => shiftDuration(start, end, breakMin(brk)), [start, end, brk]); // eslint-disable-line react-hooks/exhaustive-deps
   const weekly = useMemo(
-    () => weeklyHours(week.map((d) => ({ enabled: d.enabled, start: d.start, end: d.end, breakMinutes: breakMin(d.brk) }))),
+    () => weeklyHours(
+        // Un día marcado pero sin horas todavía no cuenta (permite rellenar solo algunos días)
+        week.map((d) => ({ enabled: d.enabled && (d.start !== "" || d.end !== ""), start: d.start, end: d.end, breakMinutes: breakMin(d.brk) })),
+      ),
     [week], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const res = mode === "daily" ? daily : weekly;
@@ -55,9 +58,9 @@ export function HoursCalculator() {
   }
 
   function resetAll() {
-    setStart("08:00");
-    setEnd("17:00");
-    setBrk("60");
+    setStart("");
+    setEnd("");
+    setBrk("");
     setWeek(initialWeek());
   }
 
@@ -87,7 +90,8 @@ export function HoursCalculator() {
         ) : (
           <div className="stack">
             {week.map((d, i) => {
-              const err = !weekly.ok && weekly.field?.startsWith(`day${i}-`) ? weekly.error : null;
+              // No se marca error en un día cuyo horario aún no se ha completado
+              const err = !weekly.ok && weekly.field?.startsWith(`day${i}-`) && d.start && d.end ? weekly.error : null;
               return (
                 <fieldset
                   key={DAYS[i]}
@@ -179,10 +183,10 @@ export function HoursCalculator() {
           </>
         ) : null}
         {!res.ok ? (
-          generalError(res, ["start", "end", "break"]) && !(mode === "weekly" && res.field?.startsWith("day")) ? (
+          generalError(res, ["start", "end", "break", "days"]) && !(mode === "weekly" && res.field?.startsWith("day")) ? (
             <ErrorMessage>{res.error}</ErrorMessage>
           ) : (
-            <ResultEmpty>Corrige los datos marcados para ver el total.</ResultEmpty>
+            <ResultEmpty>Introduce los datos para ver el total.</ResultEmpty>
           )
         ) : null}
       </div>

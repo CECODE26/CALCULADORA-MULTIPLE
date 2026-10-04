@@ -17,7 +17,7 @@ import { marginFromPrice, priceFromMargin, priceFromMarkup } from "@/lib/calc/ma
 
 const SLUG = "calculadora-margen-ganancia";
 type Mode = "price" | "margin" | "markup";
-const INITIAL = { cost: "60", price: "100", margin: "40", markup: "50" };
+const INITIAL = { cost: "", price: "", margin: "", markup: "" };
 
 export function MarginCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -128,7 +128,7 @@ export function MarginCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el resultado.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el resultado.</ResultEmpty>
         )}
       </div>
     </div>

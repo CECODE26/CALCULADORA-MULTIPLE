@@ -25,7 +25,7 @@ import { downloadCsv, toCsv } from "@/lib/csv";
 import { round2 } from "@/lib/number";
 
 const SLUG = "tabla-amortizacion";
-const INITIAL = { principal: "20000", rate: "10", term: "2" };
+const INITIAL = { principal: "", rate: "", term: "" };
 const ROW_PREVIEW = 120;
 
 export function AmortizationCalculator() {
@@ -154,7 +154,7 @@ export function AmortizationCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para generar la tabla.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para generar la tabla.</ResultEmpty>
         )}
       </div>
 

@@ -22,7 +22,7 @@ import type { TermUnit } from "@/lib/calc/rates";
 
 const SLUG = "calculadora-ahorro";
 type Mode = "have" | "need";
-const INITIAL = { initial: "1000", monthly: "150", rate: "", goal: "10000", saved: "1000", term: "3" };
+const INITIAL = { initial: "", monthly: "", rate: "", goal: "", saved: "", term: "" };
 
 export function SavingsCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -31,13 +31,16 @@ export function SavingsCalculator() {
   const { money, num } = usePrefs();
   // Rendimiento opcional: vacío = 0 %
   const rate = values.rate.trim() === "" ? 0 : nums.rate;
+  // Ahorro inicial / actual opcional: vacío = 0
+  const initial = values.initial.trim() === "" ? 0 : nums.initial;
+  const saved = values.saved.trim() === "" ? 0 : nums.saved;
 
   const res = useMemo(
     () =>
       mode === "have"
-        ? projectSavings({ initial: nums.initial, monthly: nums.monthly, ratePct: rate, term: nums.term, termUnit })
-        : savingsGoal({ goal: nums.goal, current: nums.saved, ratePct: rate, term: nums.term, termUnit }),
-    [mode, nums, rate, termUnit],
+        ? projectSavings({ initial, monthly: nums.monthly, ratePct: rate, term: nums.term, termUnit })
+        : savingsGoal({ goal: nums.goal, current: saved, ratePct: rate, term: nums.term, termUnit }),
+    [mode, nums, rate, initial, saved, termUnit],
   );
   useTrackCalculation(SLUG, mode, res.ok, signature + mode + termUnit);
 
@@ -63,13 +66,13 @@ export function SavingsCalculator() {
         <div className="fields">
           {mode === "have" ? (
             <>
-              <CurrencyInput label="Ahorro inicial" value={values.initial} onChange={set("initial")} error={fieldError(res, "initial")} />
+              <CurrencyInput label="Ahorro inicial" optional value={values.initial} onChange={set("initial")} error={fieldError(res, "initial")} />
               <CurrencyInput label="Aporte mensual" value={values.monthly} onChange={set("monthly")} error={fieldError(res, "monthly")} />
             </>
           ) : (
             <>
               <CurrencyInput label="Objetivo de ahorro" value={values.goal} onChange={set("goal")} error={fieldError(res, "goal")} />
-              <CurrencyInput label="Ahorro actual" value={values.saved} onChange={set("saved")} error={fieldError(res, "current")} />
+              <CurrencyInput label="Ahorro actual" optional value={values.saved} onChange={set("saved")} error={fieldError(res, "current")} />
             </>
           )}
           <NumberInput
@@ -151,14 +154,14 @@ export function SavingsCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver tu plan.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver tu plan.</ResultEmpty>
         )}
       </div>
 
       {projection && projection.years.length > 0 ? (
         <GrowthBreakdown
           years={projection.years}
-          initial={mode === "have" ? (Number.isFinite(nums.initial) ? nums.initial : 0) : Number.isFinite(nums.saved) ? nums.saved : 0}
+          initial={mode === "have" ? (Number.isFinite(initial) ? initial : 0) : Number.isFinite(saved) ? saved : 0}
           title="Tu ahorro año a año"
         />
       ) : null}
