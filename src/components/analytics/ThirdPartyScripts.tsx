@@ -1,6 +1,8 @@
 "use client";
 
 import Script from "next/script";
+import { useEffect } from "react";
+import { initGtag } from "@/lib/analytics";
 import { siteConfig } from "@/config/site";
 import { canLoadThirdParties, useConsent } from "./consent";
 
@@ -11,19 +13,20 @@ import { canLoadThirdParties, useConsent } from "./consent";
  */
 export function ThirdPartyScripts() {
   const consent = useConsent();
-  if (!canLoadThirdParties(consent)) return null;
+  const allowed = canLoadThirdParties(consent);
   const { gaId } = siteConfig.analytics;
   const { enabled: adsEnabled, clientId } = siteConfig.ads;
+
+  useEffect(() => {
+    if (allowed && gaId) initGtag(gaId);
+  }, [allowed, gaId]);
+
+  if (!allowed) return null;
 
   return (
     <>
       {gaId ? (
-        <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-          <Script id="ga4-init" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${gaId}',{allow_google_signals:false,allow_ad_personalization_signals:false});`}
-          </Script>
-        </>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
       ) : null}
       {adsEnabled ? (
         <Script

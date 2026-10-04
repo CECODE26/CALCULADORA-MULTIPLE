@@ -8,7 +8,7 @@ import { SearchTools } from "@/components/search/SearchTools";
 export const metadata = pageMetadata({
   title: "Todas las calculadoras y herramientas gratuitas",
   description:
-    "Listado completo de calculadoras gratuitas: préstamos, amortización, interés compuesto, ahorro, margen, precio de venta, punto de equilibrio, porcentajes, descuentos, horas e IVA.",
+    "Todas nuestras calculadoras gratuitas: préstamos, amortización, interés compuesto, ahorro, margen, precio de venta, porcentajes, descuentos, horas e IVA.",
   path: "/herramientas",
 });
 

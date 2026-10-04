@@ -17,7 +17,7 @@ export const categories: readonly Category[] = [
   {
     slug: "finanzas",
     name: "Finanzas personales",
-    title: "Calculadoras financieras gratuitas: préstamos, ahorro e intereses",
+    title: "Calculadoras financieras: préstamos, ahorro e intereses",
     description:
       "Calcula la cuota de un préstamo, genera tu tabla de amortización, proyecta tu ahorro y simula el interés compuesto. Gratis y con fórmulas explicadas.",
     intro:
@@ -27,7 +27,7 @@ export const categories: readonly Category[] = [
   {
     slug: "negocios",
     name: "Negocios y ventas",
-    title: "Calculadoras para negocios: margen, precio de venta, IVA y punto de equilibrio",
+    title: "Calculadoras para negocios: margen, precios e IVA",
     description:
       "Calcula margen de ganancia, precio de venta, punto de equilibrio, descuentos e impuestos para tu negocio. Gratis, rápido y sin registro.",
     intro:

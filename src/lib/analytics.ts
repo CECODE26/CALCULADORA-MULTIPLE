@@ -61,11 +61,38 @@ export function sanitizeParams(params: Record<string, ParamValue | undefined>): 
   return out;
 }
 
+/**
+ * Eventos ocurridos antes de que GA esté inicializado (p. ej. la vista de
+ * la primera página). Solo se envían si GA llega a cargarse, es decir,
+ * con consentimiento; si no, se descartan con la página.
+ */
+const pending: [AnalyticsEvent, Record<string, ParamValue>][] = [];
+const MAX_PENDING = 20;
+
 export function track(event: AnalyticsEvent, params: Record<string, ParamValue | undefined> = {}): void {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  if (typeof window === "undefined") return;
+  const clean = sanitizeParams(params);
+  if (typeof window.gtag !== "function") {
+    if (pending.length < MAX_PENDING) pending.push([event, clean]);
+    return;
+  }
   try {
-    window.gtag("event", event, sanitizeParams(params));
+    window.gtag("event", event, clean);
   } catch {
     // La analítica nunca debe romper la experiencia.
   }
+}
+
+/** Inicializa gtag (tras el consentimiento) y envía los eventos en cola. */
+export function initGtag(gaId: string): void {
+  if (typeof window === "undefined" || typeof window.gtag === "function") return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    // gtag.js exige el objeto `arguments` original
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", gaId, { allow_google_signals: false, allow_ad_personalization_signals: false });
+  for (const [event, params] of pending.splice(0)) window.gtag("event", event, params);
 }

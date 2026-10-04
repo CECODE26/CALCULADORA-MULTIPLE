@@ -65,7 +65,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "tabla-amortizacion",
     name: "Tabla de amortización",
-    title: "Tabla de amortización de préstamos: sistema francés y alemán",
+    title: "Tabla de amortización: sistema francés y alemán",
     description:
       "Genera la tabla de amortización completa de un préstamo: cuota, capital, interés y saldo de cada periodo. Sistema francés o alemán, pagos mensuales, trimestrales y más.",
     h1: "Tabla de amortización",
@@ -84,7 +84,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "calculadora-interes-compuesto",
     name: "Calculadora de interés compuesto",
-    title: "Calculadora de interés compuesto con aportaciones periódicas",
+    title: "Calculadora de interés compuesto con aportaciones",
     description:
       "Calcula cuánto crecerá tu inversión con interés compuesto y aportaciones periódicas, o cuánto debes aportar para alcanzar una meta. Con tabla anual y gráfico.",
     h1: "Calculadora de interés compuesto",
@@ -105,7 +105,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "calculadora-ahorro",
     name: "Calculadora de ahorro",
-    title: "Calculadora de ahorro: cuánto tendrás y cuánto ahorrar al mes",
+    title: "Calculadora de ahorro: cuánto tendrás y cuánto ahorrar",
     description:
       "Calcula cuánto dinero tendrás ahorrando cada mes o cuánto necesitas ahorrar para alcanzar una meta en un plazo determinado, con rendimiento opcional.",
     h1: "Calculadora de ahorro",
@@ -144,7 +144,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "calculadora-precio-venta",
     name: "Calculadora de precio de venta",
-    title: "Calculadora de precio de venta con costos, comisión e impuestos",
+    title: "Calculadora de precio de venta con comisión e impuestos",
     description:
       "Calcula el precio de venta de un producto a partir del costo, gastos de envío y empaque, comisión de la plataforma, margen deseado e impuesto configurable.",
     h1: "Calculadora de precio de venta",
@@ -181,7 +181,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "calculadora-porcentajes",
     name: "Calculadora de porcentajes",
-    title: "Calculadora de porcentajes: % de un número, aumentos y variación",
+    title: "Calculadora de porcentajes: aumentos, rebajas y variación",
     description:
       "Calcula el porcentaje de un número, qué porcentaje es un valor de otro, aumentos, reducciones, cambio porcentual y valor original. Con explicación de cada operación.",
     h1: "Calculadora de porcentajes",
@@ -201,7 +201,7 @@ export const tools: readonly ToolEntry[] = [
   {
     slug: "calculadora-descuentos",
     name: "Calculadora de descuentos",
-    title: "Calculadora de descuentos: precio final, ahorro y descuentos sucesivos",
+    title: "Calculadora de descuentos y descuentos sucesivos",
     description:
       "Calcula el precio final y el ahorro de un descuento, el descuento efectivo de descuentos sucesivos (20% + 10%) o el porcentaje real de descuento entre dos precios.",
     h1: "Calculadora de descuentos",
