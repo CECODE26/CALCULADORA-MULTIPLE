@@ -1,6 +1,7 @@
 import type { CategorySlug } from "@/config/categories";
 import type { MarketCode } from "@/config/markets";
 import type { IconName } from "@/components/ui/Icon";
+import { lenders } from "@/data/tasas-ecuador";
 
 /**
  * Registro central de herramientas.
@@ -56,7 +57,7 @@ export const tools: readonly ToolEntry[] = [
       "financiamiento", "hipoteca", "credito hipotecario", "credito de consumo", "deuda", "pagos mensuales",
       "simulador de credito", "simulador de prestamo", "intereses del prestamo", "auto", "carro", "coche",
     ],
-    related: ["tabla-amortizacion", "calculadora-interes-compuesto", "calculadora-ahorro", "calculadora-porcentajes"],
+    related: ["tabla-amortizacion", "simulador-credito-ecuador", "calculadora-interes-compuesto", "calculadora-ahorro", "calculadora-porcentajes"],
     popular: true,
     live: true,
     updated: "2026-10-03",
@@ -75,9 +76,30 @@ export const tools: readonly ToolEntry[] = [
       "amortizacion", "tabla de amortizacion", "cuadro de amortizacion", "calendario de pagos", "plan de pagos",
       "saldo", "capital", "sistema frances", "sistema aleman", "cuota fija", "abonos", "prestamo", "credito",
     ],
-    related: ["calculadora-prestamos", "calculadora-interes-compuesto", "calculadora-ahorro"],
+    related: ["calculadora-prestamos", "simulador-credito-ecuador", "calculadora-interes-compuesto", "calculadora-ahorro"],
     live: true,
     updated: "2026-10-03",
+  },
+  {
+    slug: "simulador-credito-ecuador",
+    name: "Simulador de crédito en Ecuador",
+    title: "Simulador de crédito en Ecuador: bancos y cooperativas",
+    description:
+      "Simula un crédito con la tasa referencial de un banco o cooperativa de Ecuador: cuota mensual, tabla de amortización francés o alemán y comparación entre entidades.",
+    h1: "Simulador de crédito por banco y cooperativa en Ecuador",
+    lead: "Elige la entidad y el tipo de crédito, y obtén la cuota y la tabla de amortización con su tasa referencial publicada.",
+    category: "finanzas",
+    icon: "bank",
+    keywords: [
+      "simulador de credito", "simulador de prestamo", "ecuador", "banco", "cooperativa", "tasa de interes",
+      "pichincha", "banco pichincha", "guayaquil", "pacifico", "produbanco", "internacional", "bolivariano", "austro",
+      "jep", "jardin azuayo", "biess", "credito de consumo", "credito hipotecario", "microcredito", "credito automotriz",
+      "tabla de amortizacion", "cuota mensual",
+    ],
+    related: ["calculadora-prestamos", "tabla-amortizacion", "calculadora-interes-compuesto"],
+    // Se publica sola cuando el archivo de tasas tiene al menos una entidad con datos verificados
+    live: lenders.length > 0,
+    updated: "2026-10-04",
   },
   {
     slug: "calculadora-interes-compuesto",

@@ -114,6 +114,7 @@ export function LoanCalculator() {
             />
             <div className="btn-row" style={{ marginTop: 12 }}>
               <NextStep from={SLUG} to="tabla-amortizacion" label="Ver tabla de amortización completa" />
+              <NextStep from={SLUG} to="simulador-credito-ecuador" label="Simular con un banco de Ecuador" />
             </div>
           </>
         ) : general ? (
