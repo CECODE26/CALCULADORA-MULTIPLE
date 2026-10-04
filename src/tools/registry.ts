@@ -138,7 +138,7 @@ export const tools: readonly ToolEntry[] = [
     related: ["calculadora-precio-venta", "calculadora-punto-equilibrio", "calculadora-descuentos", "calculadora-iva"],
     popular: true,
     featured: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -157,7 +157,7 @@ export const tools: readonly ToolEntry[] = [
     ],
     related: ["calculadora-margen-ganancia", "calculadora-punto-equilibrio", "calculadora-iva", "calculadora-descuentos"],
     popular: true,
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
@@ -175,7 +175,7 @@ export const tools: readonly ToolEntry[] = [
       "unidades", "ventas necesarias", "utilidad", "perdida", "rentabilidad negocio",
     ],
     related: ["calculadora-margen-ganancia", "calculadora-precio-venta", "calculadora-iva"],
-    live: false,
+    live: true,
     updated: "2026-10-03",
   },
   {
