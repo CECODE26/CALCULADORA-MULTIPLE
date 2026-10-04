@@ -17,7 +17,7 @@ import { compact } from "@/components/charts/scale";
 import { breakEven, breakEvenSeries, simulateSales } from "@/lib/calc/breakeven";
 
 const SLUG = "calculadora-punto-equilibrio";
-const INITIAL = { fixed: "5000", price: "25", variable: "15", units: "600" };
+const INITIAL = { fixed: "", price: "", variable: "", units: "" };
 const POINTS = 24;
 
 export function BreakEvenCalculator() {
@@ -142,7 +142,7 @@ export function BreakEvenCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el punto de equilibrio.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el punto de equilibrio.</ResultEmpty>
         )}
       </div>
 

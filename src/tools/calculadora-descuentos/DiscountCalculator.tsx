@@ -19,12 +19,12 @@ import { inverseDiscount, simpleDiscount, successiveDiscounts, type SuccessiveRe
 const SLUG = "calculadora-descuentos";
 type Mode = "simple" | "successive" | "inverse";
 const MAX_DISCOUNTS = 5;
-const INITIAL = { price: "100", pct: "20", original: "120", final: "90" };
+const INITIAL = { price: "", pct: "", original: "", final: "" };
 
 export function DiscountCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
   const [mode, setMode] = useState<Mode>("simple");
-  const [steps, setSteps] = useState<string[]>(["20", "10"]);
+  const [steps, setSteps] = useState<string[]>(["", ""]);
   const { money, pct, parse } = usePrefs();
 
   const stepNums = useMemo(() => steps.map((s) => parse(s) ?? Number.NaN), [steps, parse]);
@@ -41,7 +41,7 @@ export function DiscountCalculator() {
 
   function resetAll() {
     reset();
-    setSteps(["20", "10"]);
+    setSteps(["", ""]);
   }
 
   return (
@@ -163,7 +163,7 @@ export function DiscountCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el resultado.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el resultado.</ResultEmpty>
         )}
       </div>
     </div>

@@ -19,7 +19,7 @@ import { calculatePrice } from "@/lib/calc/pricing";
 
 const SLUG = "calculadora-precio-venta";
 type Mode = "simple" | "advanced";
-const INITIAL = { cost: "50", shipping: "", packaging: "", other: "", commission: "", margin: "30", tax: "" };
+const INITIAL = { cost: "", shipping: "", packaging: "", other: "", commission: "", margin: "", tax: "" };
 
 /** Campo opcional vacío = 0 */
 const opt = (raw: string, n: number) => (raw.trim() === "" ? 0 : n);
@@ -161,7 +161,7 @@ export function PricingCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver el precio.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver el precio.</ResultEmpty>
         )}
       </div>
     </div>

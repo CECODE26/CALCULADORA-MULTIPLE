@@ -48,7 +48,7 @@ const contributionNoun: Record<string, string> = {
   "1": "anual",
 };
 
-const INITIAL = { initial: "5000", contribution: "200", goal: "100000", rate: "7", term: "10" };
+const INITIAL = { initial: "", contribution: "", goal: "", rate: "", term: "" };
 
 export function CompoundCalculator() {
   const { values, set, nums, reset, signature } = useFields(INITIAL);
@@ -59,8 +59,10 @@ export function CompoundCalculator() {
   const [begin, setBegin] = useState(false);
   const { money, pct, num } = usePrefs();
 
+  /** Campo opcional vacío = 0 */
+  const opt = (k: "initial" | "contribution") => (values[k].trim() === "" ? 0 : nums[k]);
   const common = {
-    initial: nums.initial,
+    initial: opt("initial"),
     ratePct: nums.rate,
     term: nums.term,
     termUnit,
@@ -70,7 +72,7 @@ export function CompoundCalculator() {
   };
 
   const project = useMemo(
-    () => (mode === "project" ? compoundInterest({ ...common, contribution: nums.contribution }) : null),
+    () => (mode === "project" ? compoundInterest({ ...common, contribution: opt("contribution") }) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [mode, nums, termUnit, compounds, contribFreq, begin],
   );
@@ -115,7 +117,7 @@ export function CompoundCalculator() {
           {mode === "goal" ? (
             <CurrencyInput label="Meta a alcanzar" value={values.goal} onChange={set("goal")} error={fieldError(res, "goal")} />
           ) : null}
-          <CurrencyInput label="Capital inicial" value={values.initial} onChange={set("initial")} error={fieldError(res, "initial")} />
+          <CurrencyInput label="Capital inicial" optional value={values.initial} onChange={set("initial")} error={fieldError(res, "initial")} />
           {mode === "project" ? (
             <CurrencyInput
               label="Aportación periódica"
@@ -205,11 +207,11 @@ export function CompoundCalculator() {
         ) : general ? (
           <ErrorMessage>{general}</ErrorMessage>
         ) : (
-          <ResultEmpty>Corrige los datos marcados para ver la proyección.</ResultEmpty>
+          <ResultEmpty>Introduce los datos para ver la proyección.</ResultEmpty>
         )}
       </div>
 
-      {projection ? <GrowthBreakdown years={projection.years} initial={Number.isFinite(nums.initial) ? nums.initial : 0} /> : null}
+      {projection ? <GrowthBreakdown years={projection.years} initial={Number.isFinite(common.initial) ? common.initial : 0} /> : null}
     </div>
   );
 }

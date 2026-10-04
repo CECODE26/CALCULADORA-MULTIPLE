@@ -14,6 +14,7 @@ interface TimeInputProps {
 /** Hora en formato 24 h con el selector nativo del dispositivo. */
 export function TimeInput({ label, value, onChange, error, compact }: TimeInputProps) {
   const id = useId();
+  if (value === "") error = null;
   return (
     <div className="field">
       <label className={compact ? "field__hint" : "field__label"} htmlFor={id}>
