@@ -28,6 +28,7 @@ const ADSENSE_CLIENT_ID = clean(process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID);
 const ADS_ENABLED = clean(process.env.NEXT_PUBLIC_ADS_ENABLED) === "true";
 const REQUIRE_CONSENT = clean(process.env.NEXT_PUBLIC_REQUIRE_CONSENT, "true") !== "false";
 const GOOGLE_SITE_VERIFICATION = clean(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION);
+const CONSENT_PROVIDER = clean(process.env.NEXT_PUBLIC_CONSENT_PROVIDER, "google") === "own" ? "own" : "google";
 
 /** Validaciones de formato para no inyectar valores arbitrarios en scripts. */
 const GA_ID_PATTERN = /^G-[A-Z0-9]{4,20}$/;
@@ -46,6 +47,17 @@ export const siteConfig = {
   analytics: {
     gaId: GA_ID_PATTERN.test(GA_ID) ? GA_ID : "",
     requireConsent: REQUIRE_CONSENT,
+  },
+  consent: {
+    /**
+     * Quién pide el consentimiento:
+     *  - "google": el mensaje de «Privacidad y mensajes» de AdSense (CMP certificada
+     *    por Google, obligatoria en EEE, Reino Unido y Suiza). Solo aplica con los
+     *    anuncios activos, porque ese mensaje llega con el script de AdSense.
+     *  - "own": el aviso de cookies propio del portal.
+     */
+    provider: CONSENT_PROVIDER as "google" | "own",
+    usesGoogleCmp: CONSENT_PROVIDER === "google" && ADS_ENABLED && ADSENSE_PATTERN.test(ADSENSE_CLIENT_ID),
   },
   ads: {
     clientId: ADSENSE_PATTERN.test(ADSENSE_CLIENT_ID) ? ADSENSE_CLIENT_ID : "",

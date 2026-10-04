@@ -68,6 +68,7 @@ si cambias alguna, vuelve a construir (`npm run build` o `deploy.sh`).
 | Interruptor de anuncios | `NEXT_PUBLIC_ADS_ENABLED` | `false` |
 | Bloques de anuncio | `NEXT_PUBLIC_AD_SLOT_TOOL_IN_CONTENT`, `NEXT_PUBLIC_AD_SLOT_TOOL_BOTTOM`, `NEXT_PUBLIC_AD_SLOT_LISTING` | vacíos |
 | Consentimiento obligatorio | `NEXT_PUBLIC_REQUIRE_CONSENT` | `true` |
+| Gestor de consentimiento con anuncios | `NEXT_PUBLIC_CONSENT_PROVIDER` (`google` o `own`) | `google` |
 | Verificación Search Console | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | vacío |
 | Dominio para Nginx | `DOMAIN` | — (solo VPS) |
 | Correo Let's Encrypt | `LETSENCRYPT_EMAIL` | — (solo VPS) |
@@ -212,7 +213,9 @@ cat deploy/.release-history           # versiones desplegadas
 
 1. Crea una propiedad GA4 y un flujo web; copia el ID de medición (`G-XXXXXXXXXX`).
 2. Ponlo en `NEXT_PUBLIC_GA_ID` y despliega.
-3. GA solo se carga tras aceptar el aviso de cookies (si `NEXT_PUBLIC_REQUIRE_CONSENT=true`).
+3. Sin anuncios, GA solo se carga tras aceptar el aviso de cookies (si `NEXT_PUBLIC_REQUIRE_CONSENT=true`).
+   Con anuncios y la CMP de Google (sección 16), GA se carga con el modo de consentimiento v2: en EEE,
+   Reino Unido y Suiza todo queda denegado hasta que el visitante acepta en el mensaje de Google.
    Se desactivan las señales de Google y la personalización de anuncios.
 
 Eventos personalizados (regístralos como dimensiones personalizadas en GA4 si quieres segmentar):
@@ -248,8 +251,20 @@ Los anuncios están **desactivados** hasta que proporciones datos reales.
 3. Crea bloques de anuncios «display adaptables» y copia su `data-ad-slot` en
    `NEXT_PUBLIC_AD_SLOT_TOOL_IN_CONTENT`, `NEXT_PUBLIC_AD_SLOT_TOOL_BOTTOM` y `NEXT_PUBLIC_AD_SLOT_LISTING`.
 4. Activa `NEXT_PUBLIC_ADS_ENABLED=true` y despliega. `/ads.txt` se genera automáticamente con tu ID.
-5. **EEE, Reino Unido y Suiza:** Google exige una CMP certificada (TCF). Activa «Privacidad y mensajes» en
-   AdSense antes de servir anuncios a esas regiones y actualiza la política de cookies.
+5. **EEE, Reino Unido y Suiza:** Google exige una CMP certificada (TCF). Antes de activar los anuncios, en
+   AdSense ve a **Privacidad y mensajes → Normativas europeas**, crea el mensaje para tu sitio (en español,
+   con «No dar consentimiento» visible) y publícalo. En la configuración de ese apartado activa también el
+   **modo de consentimiento** para que Google Analytics reciba la decisión.
+
+### Consentimiento con anuncios (`NEXT_PUBLIC_CONSENT_PROVIDER`)
+
+* `google` (por defecto): con los anuncios activos, el portal **no** muestra su aviso propio. El script de
+  AdSense se carga siempre y trae el mensaje de Google, que solo aparece en EEE, Reino Unido y Suiza; GA usa
+  el modo de consentimiento con todo denegado en esas regiones hasta que el visitante acepta. «Preferencias
+  de cookies» abre el mensaje de revocación de Google.
+* `own`: se mantiene el aviso propio y no se carga nada de Google hasta aceptar. No sirve para mostrar
+  anuncios en EEE/UK/Suiza, porque no es una CMP certificada.
+* Sin anuncios activos se usa siempre el aviso propio.
 
 Ubicaciones (componente `AdSlot`): dentro del contenido explicativo, al final de cada herramienta y al
 final de las páginas de categoría. Nunca entre los campos y el resultado; siempre con la etiqueta

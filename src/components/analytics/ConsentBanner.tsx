@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { setConsent, thirdPartiesConfigured, useConsent } from "./consent";
+import { setConsent, useConsent, usesOwnBanner } from "./consent";
 
 /**
  * Aviso de cookies no intrusivo: no bloquea la página y ofrece
  * "Aceptar" y "Rechazar" con el mismo peso visual (sin dark patterns).
+ * No se muestra cuando el consentimiento lo gestiona la CMP de Google.
  */
 export function ConsentBanner() {
   const consent = useConsent();
-  if (!thirdPartiesConfigured || !siteConfig.analytics.requireConsent || consent !== "unset") return null;
+  if (!usesOwnBanner || consent !== "unset") return null;
 
   return (
     <section className="consent" aria-label="Aviso de cookies">

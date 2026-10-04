@@ -8,7 +8,9 @@ import { canLoadThirdParties, useConsent } from "./consent";
 
 /**
  * Carga Google Analytics 4 y AdSense solo si están configurados y,
- * cuando se exige consentimiento, solo después de aceptarlo.
+ * cuando se exige consentimiento con el aviso propio, solo después de
+ * aceptarlo. Con la CMP de Google se cargan siempre y el consentimiento
+ * lo gestionan el mensaje de Google y el modo de consentimiento.
  * Los IDs se validan con expresiones regulares en siteConfig.
  */
 export function ThirdPartyScripts() {
@@ -16,10 +18,11 @@ export function ThirdPartyScripts() {
   const allowed = canLoadThirdParties(consent);
   const { gaId } = siteConfig.analytics;
   const { enabled: adsEnabled, clientId } = siteConfig.ads;
+  const { usesGoogleCmp } = siteConfig.consent;
 
   useEffect(() => {
-    if (allowed && gaId) initGtag(gaId);
-  }, [allowed, gaId]);
+    if (allowed && gaId) initGtag(gaId, { consentMode: usesGoogleCmp });
+  }, [allowed, gaId, usesGoogleCmp]);
 
   if (!allowed) return null;
 

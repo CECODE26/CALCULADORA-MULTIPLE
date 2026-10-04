@@ -83,8 +83,37 @@ export function track(event: AnalyticsEvent, params: Record<string, ParamValue |
   }
 }
 
-/** Inicializa gtag (tras el consentimiento) y envía los eventos en cola. */
-export function initGtag(gaId: string): void {
+/**
+ * Regiones donde la CMP de Google pide consentimiento: EEE (UE + Islandia,
+ * Liechtenstein y Noruega), Reino Unido y Suiza.
+ */
+export const CONSENT_REGIONS = [
+  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE",
+  "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
+  "IS", "LI", "NO", "GB", "CH",
+] as const;
+
+/**
+ * Valores por defecto del modo de consentimiento de Google (v2): todo denegado
+ * en las regiones con mensaje de consentimiento hasta que la CMP lo actualice.
+ * Fuera de ellas no se fija nada y se aplica el comportamiento normal.
+ */
+export function consentModeDefaults() {
+  return {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    wait_for_update: 500,
+    region: [...CONSENT_REGIONS],
+  };
+}
+
+/**
+ * Inicializa gtag y envía los eventos en cola. Con `consentMode` fija antes de
+ * nada los valores por defecto del modo de consentimiento (CMP de Google).
+ */
+export function initGtag(gaId: string, { consentMode = false }: { consentMode?: boolean } = {}): void {
   if (typeof window === "undefined" || typeof window.gtag === "function") return;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
@@ -92,6 +121,7 @@ export function initGtag(gaId: string): void {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer!.push(arguments);
   };
+  if (consentMode) window.gtag("consent", "default", consentModeDefaults());
   window.gtag("js", new Date());
   window.gtag("config", gaId, { allow_google_signals: false, allow_ad_personalization_signals: false });
   for (const [event, params] of pending.splice(0)) window.gtag("event", event, params);

@@ -21,11 +21,13 @@ export default function CookiesPage() {
       <p>Google Analytics 4 (cookies _ga, _ga_*), solo si las aceptas. Sirven para medir de forma agregada el uso del sitio.</p>
       <h2>Cookies publicitarias (opcionales)</h2>
       <p>Google AdSense y sus socios, cuando la publicidad esté activa y según tu consentimiento.</p>
-      <p>
-        [PENDIENTE: antes de mostrar anuncios a usuarios del Espacio Económico Europeo, Reino Unido o Suiza, configurar
-        una plataforma de gestión de consentimiento certificada por Google (por ejemplo, «Privacidad y mensajes» de
-        AdSense) y actualizar esta sección.]
-      </p>
+      {siteConfig.consent.usesGoogleCmp ? (
+        <p>
+          Si visitas el sitio desde el Espacio Económico Europeo, el Reino Unido o Suiza, te mostraremos el mensaje de
+          consentimiento de Google, una plataforma de gestión del consentimiento certificada. Hasta que aceptes, no se
+          usan cookies de publicidad ni de medición, y los anuncios que veas no estarán personalizados.
+        </p>
+      ) : null}
       <h2>Cambiar tus preferencias</h2>
       <p>
         <ConsentSettingsLink />
