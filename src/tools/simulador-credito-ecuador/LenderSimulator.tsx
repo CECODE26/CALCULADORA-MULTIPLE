@@ -26,6 +26,14 @@ const SLUG = "simulador-credito-ecuador";
 const INITIAL = { principal: "", term: "" };
 const ROW_PREVIEW = 120;
 
+/** "Plazo: 3 a 60 meses", "Monto: hasta $50.000,00" o null si no hay límites publicados. */
+function range(label: string, min: number | undefined, max: number | undefined, fmt: (v: number) => string): string | null {
+  if (min !== undefined && max !== undefined) return `${label}: ${fmt(min)} a ${fmt(max)}`;
+  if (max !== undefined) return `${label}: hasta ${fmt(max)}`;
+  if (min !== undefined) return `${label}: desde ${fmt(min)}`;
+  return null;
+}
+
 export function LenderSimulator({ lenders = publishedLenders }: { lenders?: readonly Lender[] }) {
   if (lenders.length === 0) {
     return (
@@ -88,16 +96,13 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
 
   const general = generalError(res, ["principal", "term"]);
   const rows = res.ok ? (showAll ? res.value.rows : res.value.rows.slice(0, ROW_PREVIEW)) : [];
-  const limits = [
-    `Plazo: ${product.minMonths} a ${product.maxMonths} meses`,
-    product.minAmount !== undefined || product.maxAmount !== undefined
-      ? `Monto: ${product.minAmount !== undefined ? usd(product.minAmount) : "sin mínimo publicado"} a ${
-          product.maxAmount !== undefined ? usd(product.maxAmount) : "sin máximo publicado"
-        }`
-      : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  const limits =
+    [
+      range("Plazo", product.minMonths, product.maxMonths, (v) => `${v} meses`),
+      range("Monto", product.minAmount, product.maxAmount, usd),
+    ]
+      .filter(Boolean)
+      .join(" · ") || "La entidad no publica límites de plazo ni monto; dependen de la evaluación.";
 
   return (
     <div className="calc">
@@ -154,7 +159,7 @@ function Simulator({ lenders }: { lenders: readonly Lender[] }) {
               <a href={product.source} target="_blank" rel="noopener noreferrer">
                 {lender.name}
               </a>{" "}
-              · vigente a {formatDate(product.asOf, locale)}
+              · {product.asOfKind === "vigente" ? "vigente desde" : "consultada el"} {formatDate(product.asOf, locale)}
             </p>
           </div>
           <NumberInput label="Monto del crédito" prefix="$" placeholder="0" value={values.principal} onChange={set("principal")} error={fieldError(res, "principal")} />

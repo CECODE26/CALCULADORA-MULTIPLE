@@ -15,6 +15,7 @@ const product = (over: Partial<LoanProduct> = {}): LoanProduct => ({
   maxAmount: 30000,
   source: "https://example.com/tasas",
   asOf: "2026-09-01",
+  asOfKind: "vigente",
   ...over,
 });
 
@@ -47,6 +48,11 @@ describe("simulador por entidad", () => {
     expect(simulateLenderLoan({ product: p, principal: 10000, months: 12.5, system: "french" })).toMatchObject({ ok: false, field: "term" });
     expect(simulateLenderLoan({ product: p, principal: 100, months: 12, system: "french" })).toMatchObject({ ok: false, field: "principal" });
     expect(simulateLenderLoan({ product: p, principal: 50000, months: 12, system: "french" })).toMatchObject({ ok: false, field: "principal" });
+  });
+
+  it("sin límites publicados admite cualquier plazo entero", () => {
+    const p = product({ minMonths: undefined, maxMonths: undefined, minAmount: undefined, maxAmount: undefined });
+    expect(simulateLenderLoan({ product: p, principal: 100, months: 240, system: "german" }).ok).toBe(true);
   });
 
   it("campos vacíos piden datos sin mostrar errores de límites", () => {

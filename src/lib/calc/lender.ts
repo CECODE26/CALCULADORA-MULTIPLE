@@ -42,8 +42,8 @@ export function simulateLenderLoan({ product, principal, months, system }: Lende
     }
   }
   if (isNum(months) && months > 0) {
-    if (months < product.minMonths) return fail(`El plazo mínimo de este producto es ${product.minMonths} meses.`, "term");
-    if (months > product.maxMonths) return fail(`El plazo máximo de este producto es ${product.maxMonths} meses.`, "term");
+    if (product.minMonths !== undefined && months < product.minMonths) return fail(`El plazo mínimo de este producto es ${product.minMonths} meses.`, "term");
+    if (product.maxMonths !== undefined && months > product.maxMonths) return fail(`El plazo máximo de este producto es ${product.maxMonths} meses.`, "term");
   }
   return amortize({
     principal,

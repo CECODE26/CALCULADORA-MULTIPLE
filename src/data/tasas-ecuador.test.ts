@@ -15,8 +15,12 @@ describe("tasas de Ecuador (integridad de datos)", () => {
         expect(p.source, `${l.id}/${p.id}`).toMatch(/^https:\/\//);
         expect(p.asOf, `${l.id}/${p.id}`).toMatch(ISO);
         expect(p.nominalRate, `${l.id}/${p.id}`).toBeGreaterThan(0);
-        expect(p.minMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(1);
-        expect(p.maxMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(p.minMonths);
+        if (p.minMonths !== undefined) expect(p.minMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(1);
+        if (p.maxMonths !== undefined) expect(p.maxMonths, `${l.id}/${p.id}`).toBeGreaterThanOrEqual(p.minMonths ?? 1);
+        if (p.effectiveRate !== undefined) {
+          // La efectiva publicada debe corresponder a la nominal con capitalización mensual
+          expect(Math.abs(nominalToEffective(p.nominalRate) - p.effectiveRate), `${l.id}/${p.id}`).toBeLessThan(0.02);
+        }
         if (p.minAmount !== undefined && p.maxAmount !== undefined) expect(p.maxAmount).toBeGreaterThanOrEqual(p.minAmount);
       }
     }
