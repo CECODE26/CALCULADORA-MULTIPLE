@@ -34,7 +34,15 @@ export function setConsent(state: ConsentState) {
 /** ¿Hay algún servicio de terceros configurado que requiera aviso? */
 export const thirdPartiesConfigured = Boolean(siteConfig.analytics.gaId || siteConfig.ads.enabled);
 
-/** ¿Se pueden cargar servicios de terceros con el consentimiento actual? */
+/** ¿Muestra el portal su propio aviso de cookies? (no, si lo gestiona la CMP de Google) */
+export const usesOwnBanner = thirdPartiesConfigured && siteConfig.analytics.requireConsent && !siteConfig.consent.usesGoogleCmp;
+
+/**
+ * ¿Se pueden cargar servicios de terceros con el consentimiento actual?
+ * Con la CMP de Google se cargan siempre: el script de AdSense trae el mensaje
+ * de consentimiento para EEE/UK/Suiza y el modo de consentimiento de Google
+ * mantiene Analytics sin cookies allí hasta que el visitante acepta.
+ */
 export function canLoadThirdParties(consent: ConsentState): boolean {
-  return !siteConfig.analytics.requireConsent || consent === "granted";
+  return siteConfig.consent.usesGoogleCmp || !siteConfig.analytics.requireConsent || consent === "granted";
 }
